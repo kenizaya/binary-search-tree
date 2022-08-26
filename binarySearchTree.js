@@ -52,6 +52,17 @@ class Tree {
     }
     return this
   }
+
+  find(data) {
+    let current = this.root
+
+    while (current) {
+      if (data === current.data) return current
+      if (data < current.data) {
+        current = current.left
+      } else current = current.right
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -65,6 +76,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 }
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.insert(9)
+tree.insert(59)
+console.log(tree.find(400))
 prettyPrint(tree.root)
 console.log(tree)
