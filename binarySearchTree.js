@@ -18,23 +18,39 @@ class Tree {
   buildTree(arr, start = 0, end = arr.length - 1) {
     if (start > end) return null
 
-    console.log(arr)
     let mid = parseInt((start + end) / 2)
-    console.log(
-      'start =',
-      start,
-      'mid =',
-      mid,
-      'end =',
-      end,
-      'value =',
-      arr[mid]
-    )
     const node = new Node(arr[mid])
 
     node.left = this.buildTree(arr, start, mid - 1)
     node.right = this.buildTree(arr, mid + 1, end)
     return node
+  }
+
+  insert(data) {
+    const node = new Node(data)
+    let current = this.root
+
+    if (current === null) current = node
+
+    while (true) {
+      if (data === current.data) return
+      if (data < current.data) {
+        if (current.left === null) {
+          current.left = node
+          break
+        } else {
+          current = current.left
+        }
+      } else {
+        if (current.right === null) {
+          current.right = node
+          break
+        } else {
+          current = current.right
+        }
+      }
+    }
+    return this
   }
 }
 
@@ -49,6 +65,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 }
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-
+tree.insert(9)
 prettyPrint(tree.root)
 console.log(tree)
