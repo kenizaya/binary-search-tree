@@ -53,6 +53,35 @@ class Tree {
     return this
   }
 
+  delete(data) {
+    this.deleteRec(this.root, data)
+  }
+
+  deleteRec(root, data) {
+    if (root === null) return root
+
+    if (data < root.data) {
+      root.left = this.deleteRec(root.left, data)
+    } else if (data > root.data) {
+      root.right = this.deleteRec(root.right, data)
+    } else {
+      if (root.left === null) return root.right
+      else if (root.right === null) return root.left
+
+      root.data = this.minValue(root.right)
+      root.right = this.deleteRec(root.right, root.data)
+    }
+
+    return root
+  }
+
+  minValue(root) {
+    while (root.left !== null) {
+      root = root.left
+    }
+    return root.data
+  }
+
   find(data) {
     let current = this.root
 
@@ -75,8 +104,11 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 }
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+const tree = new Tree([
+  1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 40, 50, 60, 70, 80, 90, 100,
+])
 tree.insert(59)
 console.log(tree.find(400))
+tree.delete(67)
 prettyPrint(tree.root)
 console.log(tree)
