@@ -177,8 +177,18 @@ class Tree {
       }
       dep++
     }
+  }
 
-    return dep
+  isBalanced(root = this.root) {
+    let current = root
+    let leftHeight = this.height(current.left)
+    let rightHeight = this.height(current.right)
+
+    if (current.left !== null) this.isBalanced(current.left)
+    if (current.right !== null) this.isBalanced(current.right)
+
+    if (Math.abs(leftHeight - rightHeight) <= 1) return true
+    else return false
   }
 }
 
@@ -194,6 +204,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 const tree = new Tree([
   1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 40, 50, 60, 70, 80, 90, 100,
+  7000, 8000, 9000, 1000, 1111, 12000,
 ])
 tree.insert(59)
 console.log(tree.find(400))
@@ -202,4 +213,5 @@ prettyPrint(tree.root)
 console.log(tree.inorder())
 console.log(tree.height(tree.root.left.right))
 console.log(tree.depth(tree.root.left.left.left))
+console.log(tree.isBalanced())
 // console.log(tree.levelOrder((a) => console.log(a.data)))
