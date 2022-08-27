@@ -92,6 +92,23 @@ class Tree {
       } else current = current.right
     }
   }
+
+  levelOrder(fun) {
+    let current = this.root
+    if (current === null) return
+
+    const discoveredNodes = []
+    const visitedNodes = []
+    discoveredNodes.push(current)
+    while (discoveredNodes.length) {
+      current = discoveredNodes.shift()
+      if (current.left !== null) discoveredNodes.push(current.left)
+      if (current.right !== null) discoveredNodes.push(current.right)
+      visitedNodes.push(current)
+    }
+    if (typeof fun !== 'function') return visitedNodes.map((node) => node.data)
+    else visitedNodes.forEach((node) => fun(node))
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -109,6 +126,7 @@ const tree = new Tree([
 ])
 tree.insert(59)
 console.log(tree.find(400))
-tree.delete(67)
+tree.delete(40)
 prettyPrint(tree.root)
 console.log(tree)
+console.log(tree.levelOrder((a) => console.log(a.data)))
