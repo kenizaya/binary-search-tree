@@ -190,6 +190,12 @@ class Tree {
     if (Math.abs(leftHeight - rightHeight) <= 1) return true
     else return false
   }
+
+  rebalance() {
+    const unbalancedTree = this.sortAndRemoveDup(this.levelOrder())
+    this.root = this.buildTree(unbalancedTree)
+    return this.root
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
