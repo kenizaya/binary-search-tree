@@ -198,26 +198,4 @@ class Tree {
   }
 }
 
-const prettyPrint = (node, prefix = '', isLeft = true) => {
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false)
-  }
-  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`)
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true)
-  }
-}
-
-const tree = new Tree([
-  1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 40, 50, 60, 70, 80, 90, 100,
-  7000, 8000, 9000, 1000, 1111, 12000,
-])
-tree.insert(59)
-console.log(tree.find(400))
-tree.delete(40)
-prettyPrint(tree.root)
-console.log(tree.inorder())
-console.log(tree.height(tree.root.left.right))
-console.log(tree.depth(tree.root.left.left.left))
-console.log(tree.isBalanced())
-// console.log(tree.levelOrder((a) => console.log(a.data)))
+module.exports = Tree
