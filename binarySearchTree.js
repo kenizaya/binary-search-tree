@@ -154,6 +154,14 @@ class Tree {
     traverse(this.root)
     return visited
   }
+
+  height(node) {
+    if (node === null) return -1
+    let leftHeight = this.height(node.left)
+    let rightHeight = this.height(node.right)
+
+    return Math.max(leftHeight, rightHeight) + 1
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -174,4 +182,5 @@ console.log(tree.find(400))
 tree.delete(40)
 prettyPrint(tree.root)
 console.log(tree.inorder())
+console.log(tree.height(tree.root.left.right))
 // console.log(tree.levelOrder((a) => console.log(a.data)))
