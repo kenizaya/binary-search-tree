@@ -162,6 +162,24 @@ class Tree {
 
     return Math.max(leftHeight, rightHeight) + 1
   }
+
+  depth(node) {
+    let current = this.root
+    let dep = 0
+
+    if (node === null) return
+
+    while (current) {
+      if (node.data === current.data) return dep
+      if (node.data < current.data) current = current.left
+      else {
+        current = current.right
+      }
+      dep++
+    }
+
+    return dep
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -183,4 +201,5 @@ tree.delete(40)
 prettyPrint(tree.root)
 console.log(tree.inorder())
 console.log(tree.height(tree.root.left.right))
+console.log(tree.depth(tree.root.left.left.left))
 // console.log(tree.levelOrder((a) => console.log(a.data)))
