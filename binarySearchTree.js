@@ -109,6 +109,51 @@ class Tree {
     if (typeof fun !== 'function') return visitedNodes.map((node) => node.data)
     else visitedNodes.forEach((node) => fun(node))
   }
+
+  inorder(fun) {
+    const visited = []
+
+    const traverse = (root) => {
+      if (root === null) return
+      traverse(root.left)
+      if (typeof fun !== 'function') visited.push(root.data)
+      else fun(root)
+      traverse(root.right)
+    }
+
+    traverse(this.root)
+    return visited
+  }
+
+  preorder(fun) {
+    const visited = []
+
+    const traverse = (root) => {
+      if (root === null) return
+      if (typeof fun !== 'function') visited.push(root.data)
+      else fun(root)
+      traverse(root.left)
+      traverse(root.right)
+    }
+
+    traverse(this.root)
+    return visited
+  }
+
+  postorder(fun) {
+    const visited = []
+
+    const traverse = (root) => {
+      if (root === null) return
+      traverse(root.left)
+      traverse(root.right)
+      if (typeof fun !== 'function') visited.push(root.data)
+      else fun(root)
+    }
+
+    traverse(this.root)
+    return visited
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -128,5 +173,5 @@ tree.insert(59)
 console.log(tree.find(400))
 tree.delete(40)
 prettyPrint(tree.root)
-console.log(tree)
-console.log(tree.levelOrder((a) => console.log(a.data)))
+console.log(tree.inorder())
+// console.log(tree.levelOrder((a) => console.log(a.data)))
